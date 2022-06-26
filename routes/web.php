@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CrawlerController;
+use App\Http\Controllers\BrowsershotController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,3 +18,4 @@ use App\Http\Controllers\CrawlerController;
 
 Route::get('/', [HomeController::class, 'index']);
 Route::post('crawler', [CrawlerController::class, 'crawler'])->name('crawler');
+Route::get('/screenshot', [BrowsershotController::class, 'screenshotGoogle']);

@@ -43,22 +43,24 @@ class CrawlerController extends Controller
         $crawler = $client->request('GET', $url);        
         BrowsershotController::Screenshot($url ,"main_page" );        
         $crawler->filter('div.news_textBox')->each(function($node) use ($client, $url) {            
-            
-            $description =$node->filter('div.news_itemCon p')->text();
-            echo $title = $node->filter('div.news_itemsub')->text();
-            echo "<br>";
-            $href = $node->filter('a')->attr('href');
-            echo $detailUrl =  $this->baseUrl.$href;
-            echo "<br>";
-            echo $created_at= $node->filter('div.title_time')->text();
-            echo "<br>";
-            echo $description; 
-            echo "<br>";
-            echo "<hr/>";
-            if(strlen($description)>10){
+            echo '<div style="display:flex;">';
+
+                echo '<div style="display:flex;flex-direction;width:30%">';
+                $description =$node->filter('div.news_itemCon p')->text();
+                echo $title = $node->filter('div.news_itemsub')->text();
+                echo "<br>";
+                $href = $node->filter('a')->attr('href');
+                echo $detailUrl =  $this->baseUrl.$href;
+                echo "<br>";
+                echo $created_at= $node->filter('div.title_time')->text();
+                echo "<br>";
+                echo $description; 
+                echo "</div>";
                 $this->detailPage($detailUrl); 
-            }
+
+            echo "</div>";    
             
+            echo "<hr/>";
         });         
     }
 
@@ -74,13 +76,15 @@ class CrawlerController extends Controller
         BrowsershotController::Screenshot($url , $fileName);
 
         $crawler->filter('.container')->each(function($node) use ($url ,$client) {
-            echo $url;
+            echo '<div style="display:flex;flex-direction;width:70%">';
             echo $title = $node->filter('div.title')->text(); 
+            echo "<br>";
+            echo $url;
+            echo "<br>";            
             echo $node->filter('div.title_time')->text(); 
-            echo $node->filter('div.intro')->text();              
-            echo "Detail";
-                                
-            echo "<hr/>";            
+            echo "<br>";
+            echo $node->filter('div.intro')->text();                          
+            echo "</div>";            
         });
     }
 }
